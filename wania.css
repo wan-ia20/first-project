@@ -1,0 +1,204 @@
+body{
+    background-color: white;
+}
+.body1{
+    justify-content: center;
+    background-color: #a2a8d3;
+}
+.body2{
+    justify-content: center;
+    background-color: #a2a8d3;
+    border-radius: 7px; 
+}
+.body3{
+    justify-content: center;
+    background-color: #a2a8d3;
+    border-radius: 7px;
+}
+header{
+    background-color: #113f67;
+    font-family: 'Times New Roman', Times, serif;
+    text-align: center;
+    color: black;
+}
+
+.navbr{
+    background-color: #38598b;
+    text-align: center;
+    padding: 10px 20px;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+a{
+    text-decoration: none;
+    color: black;
+    padding: 20px 20px;
+}
+a:hover, a:active{
+    background-color: white;
+    color: black;
+    border-radius: 5px;
+}
+
+p{
+    margin-left: 30px;
+    margin-right: 30px;
+    text-align: justify;
+}
+h3{
+    margin-left: 30px;
+    height: 10px;
+    padding-top: 20px;
+}
+h2{
+    text-align: center;
+    background-color: #113f67;
+    padding: 10px 10px;
+    border: 1px solid black;
+}
+.head{
+    text-align: left;
+}
+.for{
+    background-color: #e7eaf6;
+    text-align: justify;
+    padding: 20px;
+    width: 40%;
+    border: 1px solid black;
+}
+.to{
+    gap: 2rem;
+    justify-content: center;
+    display: flex;
+}
+li{
+    height: 25px;
+}
+li::marker{
+    color: #113f67;
+}
+.example{
+    background-color: #a2a8d3;
+}
+section{
+    color: red;
+    font-family: 'Courier New', Courier, monospace;
+    margin: 20px;
+}
+.card1, .card2{
+    background-color: #e7eaf6;
+    margin: 20px 20px;
+    text-align: justify;
+    padding: 15px;
+    width: 40%;
+    border: 1px solid black;
+    border-radius: 30px;
+}
+.active1, .active2{
+    display: flex;
+    gap: 2rem;
+    justify-content: center;
+}
+.card1:hover{
+    background-color: whitesmoke;
+}
+.card2:hover{
+    background-color: whitesmoke;
+}
+.card3, .card4{
+    background-color: #e7eaf6;
+    margin: 10px 10px;
+    text-align: justify;
+    width: 25%;
+    border: 1px solid black;
+    border-radius: 10px;
+}
+.active3, .active4{
+    display: flex;
+    gap: 2rem;
+    justify-content: center;
+}
+.card3:hover{
+    background-color: whitesmoke;
+}
+.card4:hover{
+    background-color: whitesmoke;
+}
+.contact{
+    background-color: #eaf6f6;
+    text-align: justify;
+    padding: 30px;
+    width: 60%;
+    border: 1px solid black;
+    font-size: 150%;
+}
+.form{
+    justify-content: center;
+    display: flex;
+}
+form{
+    width: 70%;
+    height: 400px;
+    padding: 20px;
+    background-color: #e7eaf6;
+    border: 1px solid black;
+    border-radius: 10px;
+}
+label{
+    display: block;
+    margin-bottom: 6px;
+    font-weight: bold;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+input[type="text"]{
+    width: 80%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #eaf6f6;
+    border-radius: 5px; 
+}
+input[type="email"]{
+    width: 80%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #eaf6f6;
+    border-radius: 5px;
+}
+input[type="message"]{
+    width: 80%;
+    height: 15%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #eaf6f6;
+    border-radius: 5px;
+}
+textarea{
+    width: 98%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+}
+select{
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid black;
+    border-radius: 5px;
+}
+button[type="submit"]{
+    width: 20%;
+    padding: 10px;
+    background-color: #113f67;
+    color: black;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+button[type="submit"]:hover{
+    background-color: #a2a8d3;
+}
+.foot{
+   place-items: center;
+    padding: 20px;
+}
