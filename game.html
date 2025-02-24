@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+Tic Tac Toe 
+<style>
+    body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  background-color: #f0f0f0;
+}
+
+#game-board {
+  display: grid;
+  grid-template-columns: repeat(3, 100px);
+  grid-template-rows: repeat(3, 100px);
+  gap: 10px;
+}
+
+.cell {
+  width: 100px;
+  height: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2rem;
+  background-color: #fff;
+  border: 2px solid #000;
+  cursor: pointer;
+}
+</style>
+
+<div id="game-board">
+    <div class="cell" data-index="0"></div>
+    <div class="cell" data-index="1"></div>
+    <div class="cell" data-index="2"></div>
+    <div class="cell" data-index="3"></div>
+    <div class="cell" data-index="4"></div>
+    <div class="cell" data-index="5"></div>
+    <div class="cell" data-index="6"></div>
+    <div class="cell" data-index="7"></div>
+    <div class="cell" data-index="8"></div>
+  </div>
+
+  <script>
+    const cells = document.querySelectorAll('.cell');
+let currentPlayer = 'X';
+const board = Array(9).fill(null);
+
+cells.forEach(cell => {
+  cell.addEventListener('click', handleClick);
+});
+
+function handleClick(e) {
+  const index = e.target.dataset.index;
+  if (board[index] === null) {
+    board[index] = currentPlayer;
+    e.target.textContent = currentPlayer;
+    if (checkWinner()) {
+      alert(currentPlayer + ' wins!');
+      resetGame();
+    } else if (board.every(cell => cell !== null)) {
+      alert('It\'s a draw!');
+      resetGame();
+    }
+    currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
+  }
+}
+
+function checkWinner() {
+  const winningCombinations = [
+    [0, 1, 2],
+    [3, 4, 5],
+    [6, 7, 8],
+    [0, 3, 6],
+    [1, 4, 7],
+    [2, 5, 8],
+    [0, 4, 8],
+    [2, 4, 6]
+  ];
+
+  return winningCombinations.some(combination => {
+    const [a, b, c] = combination;
+    return board[a] && board[a] === board[b] && board[a] === board[c];
+  });
+}
+
+function resetGame() {
+  board.fill(null);
+  cells.forEach(cell => {
+    cell.textContent = '';
+  });
+  currentPlayer = 'X';
+}
+  </script>
+
+
+
+
+
+snake game
+<style>
+    body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  background-color: #f0f0f0;
+  font-family: Arial, sans-serif;
+}
+
+canvas {
+  border: 2px solid #000;
+}
+</style>
+
+  <canvas id="gameCanvas" width="400" height="400"></canvas>
+
+<script>
+    const canvas = document.getElementById('gameCanvas');
+const ctx = canvas.getContext('2d');
+
+const box = 20;
+const canvasSize = canvas.width;
+
+let snake = [];
+snake[0] = { x: 9 * box, y: 10 * box };
+
+let food = {
+  x: Math.floor(Math.random() * (canvasSize / box)) * box,
+  y: Math.floor(Math.random() * (canvasSize / box)) * box,
+};
+
+let score = 0;
+let direction;
+
+document.addEventListener('keydown', setDirection);
+
+function setDirection(event) {
+  if (event.keyCode === 37 && direction !== 'RIGHT') {
+    direction = 'LEFT';
+  } else if (event.keyCode === 38 && direction !== 'DOWN') {
+    direction = 'UP';
+  } else if (event.keyCode === 39 && direction !== 'LEFT') {
+    direction = 'RIGHT';
+  } else if (event.keyCode === 40 && direction !== 'UP') {
+    direction = 'DOWN';
+  }
+}
+
+function collision(newHead, array) {
+  for (let i = 0; i < array.length; i++) {
+    if (newHead.x === array[i].x && newHead.y === array[i].y) {
+      return true;
+    }
+  }
+  return false;
+}
+
+function draw() {
+  ctx.clearRect(0, 0, canvasSize, canvasSize);
+
+  for (let i = 0; i < snake.length; i++) {
+    ctx.fillStyle = (i === 0) ? 'green' : 'white';
+    ctx.fillRect(snake[i].x, snake[i].y, box, box);
+    ctx.strokeStyle = 'black';
+    ctx.strokeRect(snake[i].x, snake[i].y, box, box);
+  }
+
+  ctx.fillStyle = 'red';
+  ctx.fillRect(food.x, food.y, box, box);
+
+  let snakeX = snake[0].x;
+  let snakeY = snake[0].y;
+
+  if (direction === 'LEFT') snakeX -= box;
+  if (direction === 'UP') snakeY -= box;
+  if (direction === 'RIGHT') snakeX += box;
+  if (direction === 'DOWN') snakeY += box;
+
+  if (snakeX === food.x && snakeY === food.y) {
+    score++;
+    food = {
+      x: Math.floor(Math.random() * (canvasSize / box)) * box,
+      y: Math.floor(Math.random() * (canvasSize / box)) * box,
+    };
+  } else {
+    snake.pop();
+  }
+
+  let newHead = {
+    x: snakeX,
+    y: snakeY,
+  };
+
+  if (snakeX < 0 || snakeX >= canvasSize || snakeY < 0 || snakeY >= canvasSize || collision(newHead, snake)) {
+    clearInterval(game);
+    alert('Game Over');
+  }
+
+  snake.unshift(newHead);
+
+  ctx.fillStyle = 'black';
+  ctx.font = '20px Arial';
+  ctx.fillText('Score: ' + score, 10, canvasSize - 10);
+}
+
+let game = setInterval(draw, 100);
+</script> 
+
+
+
+<style>
+  * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.game-container {
+  text-align: center;
+  background-color: white;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 300px;
+}
+
+h1 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.choices {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 20px;
+}
+
+.choice {
+  padding: 10px 20px;
+  font-size: 18px;
+  background-color: #007BFF;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.choice:hover {
+  background-color: #0056b3;
+}
+
+.result {
+  font-size: 18px;
+}
+
+#game-result {
+  font-weight: bold;
+}
+
+#message {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+</style>
+
+
+<div class="game-container">
+  <h1>Rock Paper Scissors</h1>
+  <div class="choices">
+    <button id="rock" class="choice">Rock</button>
+    <button id="paper" class="choice">Paper</button>
+    <button id="scissors" class="choice">Scissors</button>
+  </div>
+  <div class="result">
+    <p id="message"></p>
+    <p>Player's Choice: <span id="player-choice"></span></p>
+    <p>Computer's Choice: <span id="computer-choice"></span></p>
+    <p>Result: <span id="game-result"></span></p>
+  </div>
+</div>
+
+
+<script>
+  const rockButton = document.getElementById('rock');
+const paperButton = document.getElementById('paper');
+const scissorsButton = document.getElementById('scissors');
+const playerChoiceDisplay = document.getElementById('player-choice');
+const computerChoiceDisplay = document.getElementById('computer-choice');
+const resultDisplay = document.getElementById('game-result');
+const messageDisplay = document.getElementById('message');
+
+const choices = ['rock', 'paper', 'scissors'];
+
+rockButton.addEventListener('click', () => playGame('rock'));
+paperButton.addEventListener('click', () => playGame('paper'));
+scissorsButton.addEventListener('click', () => playGame('scissors'));
+
+function getComputerChoice() {
+  const randomIndex = Math.floor(Math.random() * 3);
+  return choices[randomIndex];
+}
+
+function playGame(playerChoice){
+  const computerChoice = getComputerChoice();
+  playerChoiceDisplay.textContent = playerChoice;
+  computerChoiceDisplay.textContent = computerChoice;
+  let result;
+  if (playerChoice === computerChoice) {
+    result = "It's a tie!";
+  } else if (
+    (playerChoice === 'rock' && computerChoice === 'scissors') ||
+    (playerChoice === 'paper' && computerChoice === 'rock') ||
+    (playerChoice === 'scissors' && computerChoice === 'paper')
+  ) {
+    result = 'You win!';
+  } else {
+    result = 'You lose!';
+  }
+if (result === 'You win!') {
+    messageDisplay.textContent = "Congratulations!";
+    messageDisplay.style.color = 'green';
+  } else if (result === 'You lose!') {
+    messageDisplay.textContent = "Better luck next time!";
+    messageDisplay.style.color = 'red';
+  } else {
+    messageDisplay.textContent = "It's a draw!";
+    messageDisplay.style.color = 'blue';
+  }
+}
+</script>
+
+</body>
+</html>
